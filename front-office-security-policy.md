@@ -1,5 +1,3 @@
----
-
 # **Kebijakan Keamanan Perangkat dan Aplikasi Front-Office**
 
 **Versi:** 1.0
