@@ -1,6 +1,6 @@
 # banking-frontoffice-security-and-secure-sdlc-policy.md
 **Versi:** 1.0  
-**Status:** Approved  
+**Status:** Draft   
 **Klasifikasi:** Internal – Confidential  
 
 ---
