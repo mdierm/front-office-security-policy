@@ -1,390 +1,334 @@
 # banking-frontoffice-security-and-secure-sdlc-policy.md
-
-**Versi:** 1.0
-**Status:** Draf
-**Klasifikasi:** Internal – Confidential**
+**Versi:** 1.0  
+**Status:** Approved  
+**Klasifikasi:** Internal – Confidential  
 
 ---
 
-# **1. Pendahuluan**
+# 1. Pendahuluan
 
 Dokumen ini merupakan kebijakan komprehensif yang mengatur keamanan perangkat front-office, keamanan aplikasi, Secure Software Development Lifecycle (Secure SDLC), serta Security by Design (SbD) di lingkungan perbankan.
 
-Tujuan dokumen ini adalah memastikan:
+Tujuan dokumen ini adalah untuk memastikan bahwa seluruh aplikasi dan perangkat yang digunakan nasabah atau frontliner bank:
 
-* aplikasi front-office tidak dapat di-*escape* dari UI ke OS,
-* tidak ada data sensitif yang disimpan lokal,
-* perangkat bekerja di lingkungan yang terkontrol (domain join, GPO, EDR),
-* vendor aplikasi & perangkat mematuhi standar keamanan bank,
-* seluruh pengembangan aplikasi mengikuti Secure SDLC dan SbD berbasis standar global.
-
----
-
-# **2. Dasar Regulasi & Standar Referensi**
-
-## **2.1. Regulasi Indonesia (OJK & BI)**
-
-* POJK 38/POJK.03/2016 – Manajemen Risiko TI
-* SEOJK 29/SEOJK.03/2022 – Keamanan Sistem Informasi Perbankan
-* POJK 11/POJK.03/2022 – Transformasi Digital Perbankan
-* SE BI No. 9/30/DPNP – Risiko TI
-* UU Perlindungan Data Pribadi (UU PDP)
-
-## **2.2. Standar Internasional**
-
-* NIST SP 800-218 – Secure Software Development Framework (SSDF)
-* NIST SP 800-53 Rev5 – Security & Privacy Controls
-* NIST SP 800-160 – Systems Security Engineering
-* NIST Cybersecurity Framework 2.0
-* ISO/IEC 27001:2022 (A.8, A.8.7, A.8.9, A.14)
-* CIS Controls v8 – Control 4, 10, 16
-* PCI DSS v4.0 – Data Security
-* FFIEC IT Examination Handbook
+- aman dari OS escape, gesture exploit, dan file system exposure  
+- tidak menyimpan data sensitif secara lokal  
+- berjalan pada perangkat yang ter-hardening dengan domain join, GPO, dan EDR  
+- mematuhi standar dan regulasi perbankan  
+- mengikuti Secure SDLC dan Security by Design sejak tahap perencanaan  
 
 ---
 
-# **3. Lingkup Kebijakan**
+# 2. Dasar Regulasi & Standar Referensi
 
-Kebijakan ini diberlakukan untuk:
+## 2.1 Regulasi Indonesia (OJK & BI)
+- POJK 38/POJK.03/2016 – Manajemen Risiko TI  
+- SEOJK 29/SEOJK.03/2022 – Keamanan Sistem Informasi Perbankan  
+- POJK 11/POJK.03/2022 – Transformasi Digital Perbankan  
+- SE BI No. 9/30/DPNP – Risiko TI  
+- UU Perlindungan Data Pribadi (UU PDP)
 
-* seluruh aplikasi front-office, teller, customer service, onboarding, dan lain-lain,
-* perangkat AIO PC, teller workstation, kiosk, terminal pelanggan,
-* seluruh perangkat cabang yang digunakan nasabah/staf,
-* seluruh vendor pengembang aplikasi dan vendor perangkat,
-* seluruh fase Secure SDLC internal bank.
-
----
-
-# **4. Kebijakan Keamanan Perangkat Front-Office**
-
-## **4.1. Domain Join (Mandatory)**
-
-Semua perangkat wajib:
-
-* join Active Directory Domain,
-* masuk OU khusus Front-Office Workstation,
-* mengikuti seluruh GPO lockdown.
-
-Perangkat non-domain → **non-compliant** dan dilarang digunakan.
+## 2.2 Standar Internasional
+- NIST SP 800-218 – Secure Software Development Framework (SSDF)  
+- NIST SP 800-53 Rev5 – Security & Privacy Controls  
+- NIST SP 800-160 – Systems Security Engineering  
+- NIST Cybersecurity Framework 2.0  
+- ISO/IEC 27001:2022 (A.8, A.8.7, A.8.9, A.14)  
+- CIS Controls v8 – Control 4, 10, 16  
+- PCI DSS v4.0  
+- FFIEC IT Examination Handbook  
 
 ---
 
-## **4.2. Hardening Perangkat (Critical)**
+# 3. Lingkup Kebijakan
 
-Semua perangkat harus mengikuti:
+Kebijakan ini berlaku untuk:
 
-* Kiosk Mode / Assigned Access
-* Fullscreen lock, tanpa minimize
-* Disable gesture: swipe kiri/kanan/atas/bawah
-* Disable hotkey: ALT+TAB, Windows, CTRL+ALT+DEL
-* Disable Task View, Action Center, File Explorer
-* Disable CMD, PowerShell, Run
-* USB storage disabled
-* BitLocker aktif
-* Tidak ada local admin account
+- seluruh aplikasi front-office, teller, dan onboarding  
+- perangkat AIO PC, teller workstation, kiosk, CS terminal  
+- vendor aplikasi dan vendor perangkat  
+- seluruh proses internal Secure SDLC  
+
+---
+
+# 4. Kebijakan Keamanan Perangkat Front-Office
+
+## 4.1 Domain Join (Mandatory)
+Seluruh perangkat wajib:
+
+- join ke Active Directory Domain  
+- ditempatkan pada OU *Front-Office Workstation*  
+- mengikuti seluruh GPO lockdown  
+
+Perangkat non-domain dianggap **non-compliant**.
+
+---
+
+## 4.2 Hardening Perangkat (Critical)
+
+Perangkat wajib mengikuti:
+
+- Kiosk Mode / Assigned Access  
+- Fullscreen lock tanpa minimize  
+- Disable OS gesture (swipe kiri/kanan/atas/bawah)  
+- Disable ALT+TAB, Windows key, CTRL+ALT+DEL  
+- Disable Task View, Action Center, File Explorer  
+- Disable CMD, PowerShell, Registry Editor  
+- Disable USB storage  
+- BitLocker aktif  
+- Dilarang menggunakan local admin  
 
 Referensi: **CIS Benchmarks, NIST CM-7, ISO 27001 A.8.9**
 
 ---
 
-## **4.3. Endpoint Security (Mandatory EDR)**
+## 4.3 Endpoint Security (Mandatory EDR)
 
-Semua perangkat harus memiliki:
+Perangkat wajib memiliki:
 
-* EDR aktif dengan tamper protection
-* integrasi SIEM pusat
-* alerting real-time
-* agent tidak boleh dinonaktifkan
-* aplikasi front-office menolak berjalan jika EDR nonaktif
+- EDR aktif dengan tamper protection  
+- monitoring terhubung ke SIEM  
+- auto-block untuk aktivitas mencurigakan  
+- aplikasi front-office tidak boleh berjalan jika EDR nonaktif  
 
 ---
 
-## **4.4. Penyimpanan Data Sensitif**
+## 4.4 Penyimpanan Data Sensitif
 
-Tidak ada data sensitif yang boleh disimpan di perangkat:
+Dilarang menyimpan data sensitif pada perangkat, termasuk:
 
-* foto nasabah
-* biometrik
-* KTP/KK
-* dokumen nasabah
-* konfigurasi rahasia
-* log sensitif
+- foto nasabah  
+- biometrik  
+- dokumen identitas  
+- konfigurasi rahasia aplikasi  
+- log sensitif  
 
-Semua pemrosesan harus dilakukan **in-memory**, bukan via file.
+Foto dan data hanya boleh diproses **in-memory**.
 
 Referensi: **UU PDP, NIST SC-28**
 
 ---
 
-# **5. Kebijakan Keamanan Aplikasi Front-Office**
+# 5. Kebijakan Keamanan Aplikasi Front-Office
 
-## **5.1. Secure Front-Office Mode**
+## 5.1 Secure Front-Office Mode
 
-Aplikasi harus mendukung:
+Aplikasi harus:
 
-* fullscreen lock
-* anti-minimize
-* UI anti-escape
-* tidak spawn window / dialog OS
-* tidak bisa membuka file explorer
-* tidak menyimpan data lokal
-* auto-session clear
+- berjalan fullscreen  
+- tidak dapat di-minimize  
+- tidak spawn window OS  
+- tidak memiliki akses file system  
+- auto-clear sensitive data  
 
 ---
 
-## **5.2. OS Escape Prevention**
+## 5.2 OS Escape Prevention
 
-Aplikasi **tidak boleh** dapat keluar ke OS via:
+Aplikasi tidak boleh dieksploitasi melalui:
 
-* swipe gesture
-* hotkey
-* right-click / long-press
-* HTML file upload dialog
-* WebView escape
-* multi-window exploit
+- gesture touchscreen  
+- hotkey  
+- context menu  
+- WebView escape  
+- file upload dialog bypass  
 
-Jika satu saja test gagal → aplikasi **tidak boleh digunakan di cabang**.
-
----
-
-## **5.3. Konfigurasi Aman**
-
-* API key/secret harus dienkripsi
-* file konfigurasi tidak boleh readable oleh user workstation
-* tidak ada default password
-* tidak ada debug mode di production
-* TLS 1.2/1.3 mandatory
+Jika gagal satu test → aplikasi **tidak boleh go-live**.
 
 ---
 
-# **6. Kebijakan untuk Vendor Perangkat (AIO/Kiosk)**
+## 5.3 Konfigurasi Aman
 
-Vendor wajib memastikan perangkat:
-
-* kompatibel dengan domain join
-* kompatibel dengan GPO lockdown
-* kompatibel dengan EDR bank
-* bebas bloatware
-* memiliki BIOS lock
-* lulus OS escape test
-* lulus gesture bypass test
-* lulus hardening compatibility test
-
-Perangkat yang gagal → ditolak.
+- API key / secret harus dienkripsi  
+- tidak ada default password  
+- tidak ada debug menu  
+- TLS 1.2/1.3 mandatory  
 
 ---
 
-# **7. Pengujian Keamanan (Aplikasi & Perangkat)**
+# 6. Kebijakan untuk Vendor Perangkat (AIO/Kiosk)
 
-## **7.1. Pengujian aplikasi**
+Vendor wajib memastikan bahwa perangkat:
 
-* SAST
-* DAST
-* SCA
-* Penetration testing
-* Threat modeling
-* Secure UAT
-* Local storage test
-* Privacy compliance test
-
-## **7.2. Pengujian perangkat**
-
-* OS escape test
-* swipe gesture bypass test
-* hotkey bypass test
-* USB rogue device test
-* BIOS bypass test
-* thumbnail/residue test
-
-## **7.3. End-to-End Testing**
-
-Dilakukan di perangkat AIO vendor dengan:
-
-* domain join
-* GPO aktif
-* EDR aktif
-
-Jika gagal → tidak boleh go-live.
+- kompatibel dengan domain join dan GPO  
+- kompatibel dengan EDR  
+- memiliki BIOS/UEFI lock  
+- bebas bloatware  
+- lulus hardening compatibility test  
+- lulus OS escape & gesture bypass test  
 
 ---
 
-# **8. Secure SDLC Governance (Banking)**
+# 7. Pengujian Keamanan (Aplikasi & Perangkat)
 
-## **8.1. Executive Sponsor (CTO / Head of ICT)**
+## 7.1 Pengujian Aplikasi
+- SAST  
+- DAST  
+- SCA  
+- Penetration Testing  
+- Threat Modeling  
+- Secure UAT  
+- Privacy Compliance Test  
 
-* menyetujui kebijakan
-* mengalokasi anggaran
-* mengambil keputusan risiko strategis
+## 7.2 Pengujian Perangkat
+- OS escape test  
+- gesture bypass test  
+- hotkey bypass test  
+- USB rogue device test  
+- thumbnail/residue test  
+- BIOS bypass test  
 
-## **8.2. Business Owner**
+## 7.3 End-to-End Testing
+Dilakukan pada perangkat AIO vendor dengan:
 
-* membuat BRD
-* melakukan UAT
-* pemilik risiko
-* memberikan approval go-live bisnis
-
-## **8.3. IT Solution / Development Oversight**
-
-* menyusun arsitektur
-* mengawasi pekerjaan vendor
-* melakukan architecture review
-
-## **8.4. IT Security (CISO Office)**
-
-* menyusun Security Requirements
-* threat modeling
-* SAST, DAST, Pentest
-* Security Sign-Off (mandatory)
-* menolak implementasi jika risiko High/ Critical
-* validasi environment keamanan perangkat
-
-## **8.5. IT Operations**
-
-* environment deployment
-* domain join & GPO
-* EDR deployment
-* production deployment
-
-## **8.6. Vendor Management / Procurement / Legal**
-
-* kontrak dengan security addendum
-* SLA dan penalti
-* compliance vendor
-
-## **8.7. QA / UAT**
-
-* functional testing
-* security UAT (escape, gesture, privacy)
-
-## **8.8. Risk Management**
-
-* risk assessment
-* residual risk validation
-* rekomendasi pengendalian
-
-## **8.9. Internal Audit**
-
-* audit berkala
-* audit SSDLC
-* temuan & rekomendasi
+- domain join  
+- GPO aktif  
+- EDR aktif  
 
 ---
 
-# **9. RACI Matrix – Secure SDLC (Banking)**
+# 8. Secure SDLC Governance
 
-```markdown
-| SSDLC Activity                    | BO | IT Sol | IT Sec | IT Ops | QA/UAT | Vendor Dev | Vend Mgmt | Risk | Audit |
-|----------------------------------|----|--------|--------|--------|--------|-------------|-----------|-------|--------|
-| Planning                         | A  | R      | C      | I      | I      | C           | I         | C     | I      |
-| Security Requirements            | C  | C      | A/R    | I      | I      | C           | I         | C     | I      |
-| Architecture & Design Review     | C  | A/R    | R      | C      | I      | C           | I         | C     | I      |
-| Threat Modeling                  | I  | C      | A/R    | C      | I      | C           | I         | C     | I      |
-| Development                      | I  | C      | C      | I      | I      | A/R         | I         | I     | I      |
-| SAST/SCA Review                  | I  | C      | A/R    | I      | I      | R           | I         | I     | I      |
-| DAST/Pentest                     | I  | C      | A/R    | I      | I      | R           | I         | C     | I      |
-| UAT Functional                   | A  | C      | I      | I      | R      | C           | I         | I     | I      |
-| UAT Security                     | C  | C      | A/R    | I      | R      | C           | I         | C     | I      |
-| Environment Preparation          | I  | C      | C      | A/R    | I      | C           | I         | I     | I      |
-| Deployment to Production         | C  | C      | A      | R      | I      | C           | I         | C     | I      |
-| Go-Live Approval                 | A  | C      | C      | C      | C      | I           | I         | C     | I      |
-| Post-Implementation Monitoring   | I  | I      | A/R    | R      | I      | I           | I         | C     | C/R    |
-| Periodic Audit                   | I  | I      | C      | C      | I      | I           | I         | C     | A/R    |
-```
+## 8.1 Executive Sponsor (CTO/Head of ICT)
+- menyetujui kebijakan  
+- menyediakan anggaran  
+- keputusan risiko strategis  
 
----
+## 8.2 Business Owner
+- menyusun BRD  
+- melakukan UAT  
+- pemilik risiko  
+- approver go-live  
 
-# **10. Security by Design (SbD) – Versi Khusus Perbankan**
+## 8.3 IT Solution / Development Oversight
+- arsitektur sistem  
+- oversight vendor  
+- design review  
 
-## **10.1. Data Protection by Design**
+## 8.4 IT Security (CISO Office)
+- Security Requirements  
+- Threat Modeling  
+- SAST/DAST/Pentest  
+- Security Sign-Off  
+- environment validation  
 
-* tidak boleh ada data sensitif di endpoint
-* foto diproses in-memory
-* TLS mandatory
-* encryption mandatory
-* data minimization
+## 8.5 IT Operations
+- deployment environment  
+- domain join & GPO  
+- EDR deployment  
+- production deployment  
 
-## **10.2. Least Privilege & Zero Trust**
+## 8.6 Vendor Management / Legal
+- security addendum  
+- SLA & penalti  
+- compliance vendor  
 
-* aplikasi berjalan sebagai restricted user
-* environment isolation
-* process sandboxing
+## 8.7 QA/UAT
+- functional testing  
+- security UAT  
 
-## **10.3. Secure UI/UX for Banking**
+## 8.8 Risk Management
+- risk assessment  
+- residual risk review  
 
-* anti-gesture
-* anti-minimize
-* anti-window-spawn
-* auto-clear sensitive UI
-
-## **10.4. Device Hardening**
-
-* domain join
-* GPO lockdown
-* BitLocker
-* USB disabled
-
-## **10.5. Secure Media Handling**
-
-* tidak boleh ada penyimpanan foto nasabah lokal
-* tidak boleh ada cache
-* backend encrypted storage only
-
-## **10.6. Secure Authentication & Session**
-
-* timeout 2–3 menit
-* no persistent session
-* session stored server-side
-
-## **10.7. Anti-Tampering**
-
-* code obfuscation
-* integrity check
-* anti-debug
-
-## **10.8. Environment Trust Enforcement**
-
-Aplikasi wajib menolak berjalan jika:
-
-* EDR nonaktif
-* domain join tidak valid
-* GPO tidak aktif
-* hardening gagal
-
-## **10.9. Testability by Design**
-
-Testing wajib sebelum go-live:
-
-* OS escape test
-* gesture test
-* privacy test
-* local storage exposure test
-* thumbnail test
-* SAST/DAST/SCA
-* Pentest
+## 8.9 Internal Audit
+- audit berkala  
+- audit SSDLC  
+- rekomendasi perbaikan  
 
 ---
 
-# **11. Review dan Maintenance**
+# 9. RACI Matrix – Secure SDLC
 
-Dokumen ini direview minimal setiap **12 bulan** atau ketika:
+| SSDLC Activity                  | BO | IT Sol | IT Sec | IT Ops | QA | Vendor Dev | Vendor Mgt | Risk | Audit |
+|--------------------------------|----|--------|--------|--------|----|-------------|-------------|------|--------|
+| Planning                       | A  | R      | C      | I      | I  | C           | I           | C    | I      |
+| Security Requirements          | C  | C      | A/R    | I      | I  | C           | I           | C    | I      |
+| Architecture & Design Review   | C  | A/R    | R      | C      | I  | C           | I           | C    | I      |
+| Threat Modeling                | I  | C      | A/R    | C      | I  | C           | I           | C    | I      |
+| Development                    | I  | C      | C      | I      | I  | A/R         | I           | I    | I      |
+| SAST/SCA Review                | I  | C      | A/R    | I      | I  | R           | I           | I    | I      |
+| DAST/Pentest                   | I  | C      | A/R    | I      | I  | R           | I           | C    | I      |
+| UAT Functional                 | A  | C      | I      | I      | R  | C           | I           | I    | I      |
+| UAT Security                   | C  | C      | A/R    | I      | R  | C           | I           | C    | I      |
+| Environment Preparation        | I  | C      | C      | A/R    | I  | C           | I           | I    | I      |
+| Deployment to Production       | C  | C      | A      | R      | I  | C           | I           | C    | I      |
+| Go-Live Approval               | A  | C      | C      | C      | C  | I           | I           | C    | I      |
+| Post-Implementation Monitoring | I  | I      | A/R    | R      | I  | I           | I           | C    | C/R    |
+| Periodic Audit                | I  | I      | C      | C      | I  | I           | I           | C    | A/R    |
 
-* terdapat perubahan teknologi atau arsitektur,
-* terdapat perubahan regulasi OJK/BI,
-* terdapat temuan audit,
-* terjadi insiden keamanan signifikan.
+---
+
+# 10. Security by Design (SbD) – Perbankan
+
+## 10.1 Data Protection by Design
+- tidak menyimpan foto atau PII lokal  
+- semua pemrosesan foto in-memory  
+- TLS wajib  
+- encryption mandatory  
+
+## 10.2 Least Privilege & Zero Trust
+- restricted account  
+- process sandboxing  
+- environment isolation  
+
+## 10.3 Secure UI/UX for Banking
+- anti-minimize  
+- anti-gesture  
+- auto-clear UI  
+
+## 10.4 Device Hardening
+- domain join & GPO lockdown  
+- BitLocker  
+- USB disabled  
+
+## 10.5 Secure Media Handling
+- tidak boleh ada cache  
+- file hanya disimpan di backend terenkripsi  
+
+## 10.6 Secure Authentication & Session
+- timeout 2–3 menit  
+- no persistent session  
+
+## 10.7 Anti-Tampering
+- code obfuscation  
+- integrity checking  
+- anti-debugger  
+
+## 10.8 Environment Trust Enforcement
+Aplikasi harus menolak berjalan jika:
+
+- EDR nonaktif  
+- domain join tidak valid  
+- GPO tidak aktif  
+
+## 10.9 Testability by Design
+Testing wajib:
+
+- OS escape  
+- gesture  
+- privacy  
+- local residue  
+- SAST/DAST/SCA  
+- pentest  
 
 ---
 
-# **12. Penutup**
+# 11. Review & Maintenance
 
-Dokumen ini menjadi standar resmi bank dalam memastikan:
+Dokumen ini direview minimal setiap 12 bulan atau ketika:
 
-* keamanan perangkat cabang,
-* keamanan aplikasi front-office,
-* integrasi vendor yang aman,
-* penerapan Secure SDLC dan SbD yang sesuai standar internasional,
-* kepatuhan terhadap regulasi OJK, BI, dan UU PDP.
-
-Kebijakan ini **wajib dipatuhi** oleh seluruh unit dan vendor tanpa pengecualian.
+- arsitektur berubah  
+- regulasi berubah  
+- temuan audit muncul  
+- terjadi insiden keamanan  
 
 ---
+
+# 12. Penutup
+
+Dokumen ini merupakan standar resmi keamanan front-office dan Secure SDLC di lingkungan bank.  
+Seluruh unit internal dan vendor wajib mematuhi seluruh kebijakan ini tanpa pengecualian.
+
+---
+
