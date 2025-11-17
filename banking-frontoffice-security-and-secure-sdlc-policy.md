@@ -2,7 +2,7 @@
 
 **Versi:** 1.0
 **Status:** -
-**Klasifikasi:** Internal – Confidential**
+**Klasifikasi:**Internal – Confidential**
 
 ---
 
