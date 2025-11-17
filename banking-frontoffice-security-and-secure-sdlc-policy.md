@@ -1,6 +1,3 @@
-Baik — berikut saya buatkan **SATU dokumen .md FINAL** yang **menggabungkan seluruh kebijakan**:
-
-✔ Front-Office Device Security Policy
 # `banking-frontoffice-security-and-secure-sdlc-policy.md`
 
 **Versi:** 1.0
